@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 4 Vocabulary Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Deep Indigo, Teal Accent, and Modern Slate -->
+    <!-- Application Structure Plan: A tab-based SPA (replacing linear slides) with three main, themed sections: Institution, Statement, and Reference. The structure uses card-based components for Definition, Usage, and Interactive Quizzes. This structure is chosen to allow non-linear, self-paced exploration and testing of vocabulary understanding. -->
+    <!-- Visualization & Content Choices: Report Info: Vocabulary, definitions, usage, and word family. -> Goal: Inform, Test Knowledge. -> Viz/Presentation Method: High-contrast definition blockquotes, structured HTML tables for linguistic analysis, and interactive form-based questions. -> Interaction: Tab navigation and multiple-choice question validation with instant feedback using JS. -> Justification: Provides focused, digestible information blocks and immediate assessment for a better learning outcome. -> Library/Method: Vanilla JS for all interactivity. No charts are used as the content is primarily definitional/linguistic. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            font-weight: 600;
+        }
+        .tab-btn.active {
+            color: #1e3a8a; /* blue-900 */
+            border-bottom-color: #1e3a8a;
+            background-color: #e2e8f0; /* slate-200 */
+        }
+        .content-panel {
+            display: none;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .question-option:hover {
+            background-color: #f0f9ff; /* sky-50 */
+            border-color: #3b82f6; /* blue-500 */
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto max-w-6xl p-4 sm:p-8 md:p-12">
+        
+        <header class="text-center mb-10 md:mb-16 bg-white p-6 rounded-xl shadow-lg border-t-4 border-indigo-600">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900">Group 4 Presentation</h1>
+            <p class="mt-3 text-xl sm:text-2xl font-medium text-indigo-700">Vocabulary Understanding and Application</p>
+            <p class="mt-2 text-lg text-slate-600">Explore and test your knowledge on three core concepts.</p>
+        </header>
+
+        <nav class="mb-8 rounded-xl overflow-hidden shadow-md">
+            <ul class="flex justify-center text-sm sm:text-base font-medium text-center text-slate-600 bg-slate-300">
+                <li>
+                    <button class="tab-btn active inline-block p-4 sm:p-5 w-32 md:w-48" data-target="institution">
+                        <span class="text-2xl mr-1">🏛️</span> Institution
+                    </button>
+                </li>
+                <li>
+                    <button class="tab-btn inline-block p-4 sm:p-5 w-32 md:w-48" data-target="statement">
+                         <span class="text-2xl mr-1">🗣️</span> Statement
+                    </button>
+                </li>
+                <li>
+                    <button class="tab-btn inline-block p-4 sm:p-5 w-32 md:w-48" data-target="reference">
+                         <span class="text-2xl mr-1">📚</span> Reference
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Institution Content -->
+            <section id="institution" class="content-panel active">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card md:col-span-2">
+                        <h2 class="text-3xl font-bold text-indigo-700 mb-4 border-b pb-2 border-indigo-100">Institution: Definition and Usage</h2>
+                        <blockquote class="border-l-4 border-teal-500 pl-4 text-slate-700 italic text-lg">
+                            An Institution is defined as an established organization or system.
+                        </blockquote>
+                        <div class="mt-6 space-y-4">
+                            <h3 class="font-semibold text-xl text-slate-800 mb-2">Key Data & Structure:</h3>
+                            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                <li>**Phonetics:** `[ˌɪn.stɪˈtjuː.ʃən]`</li>
+                                <li>**Part of Speech:** Noun (n)</li>
+                                <li>**Core Meaning:** An established organization</li>
+                                <li>**Word Family:** institutional (adj)</li>
+                                <li>**Collocations:** educational institution / financial institution</li>
+                                <li>**Example Sentence:** Oxford is a famous educational institution.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Question Card 1 -->
+                    <div class="card bg-indigo-50 border-indigo-200">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4">Question 1: Formal vs. Informal</h3>
+                        <p class="font-semibold text-slate-900 mb-4">Which of the following is considered an Informal Institution?</p>
+                        <form id="q1a-form" class="space-y-3">
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1a" value="A" class="mr-2"> A. The Bank of America
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1a" value="B" class="mr-2"> B. The Custom of Shaking Hands
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1a" value="C" class="mr-2"> C. Harvard University
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1a" value="D" class="mr-2"> D. The U.S. Congress
+                            </label>
+                            <button type="button" onclick="checkAnswer('q1a', 'B', 'q1a-feedback')" class="mt-4 w-full px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg">Check Answer</button>
+                        </form>
+                        <div id="q1a-feedback" class="mt-4 p-3 rounded-lg font-medium hidden"></div>
+                    </div>
+
+                    <!-- Question Card 2 -->
+                    <div class="card bg-indigo-50 border-indigo-200">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4">Question 2: Word Family Usage</h3>
+                        <p class="font-semibold text-slate-900 mb-4">The phrase "institutional memory" uses the adjective form. What does it refer to?</p>
+                        <form id="q1b-form" class="space-y-3">
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1b" value="A" class="mr-2"> A. A type of building architecture.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1b" value="B" class="mr-2"> B. The accumulated knowledge and history retained by an organization.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1b" value="C" class="mr-2"> C. The political structure of a country.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q1b" value="D" class="mr-2"> D. A financial investment strategy.
+                            </label>
+                            <button type="button" onclick="checkAnswer('q1b', 'B', 'q1b-feedback')" class="mt-4 w-full px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg">Check Answer</button>
+                        </form>
+                        <div id="q1b-feedback" class="mt-4 p-3 rounded-lg font-medium hidden"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Statement Content -->
+            <section id="statement" class="content-panel">
+                 <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card md:col-span-2">
+                        <h2 class="text-3xl font-bold text-indigo-700 mb-4 border-b pb-2 border-indigo-100">Statement: Definition and Usage</h2>
+                        <blockquote class="border-l-4 border-teal-500 pl-4 text-slate-700 italic text-lg">
+                            A Statement is a clear, definitive expression or declaration of something, asserting a fact, an opinion, or a formal claim.
+                        </blockquote>
+                        <div class="mt-6 space-y-4">
+                            <h3 class="font-semibold text-xl text-slate-800 mb-2">Key Data & Structure:</h3>
+                            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                <li>**Phonetics:** `[ˈsteɪt.mənt]` (Example usage, not provided in source, but implied)</li>
+                                <li>**Part of Speech:** Noun (n)</li>
+                                <li>**Core Meaning:** An assertion or declaration (Word Family: State (v))</li>
+                                <li>**Collocations:** Official statement / bank statement</li>
+                                <li>**Example Sentence:** The CEO issued a prepared statement regarding the merger.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Question Card 1 -->
+                    <div class="card bg-indigo-50 border-indigo-200">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4">Question 1: Types of Statements</h3>
+                        <p class="font-semibold text-slate-900 mb-4">A speaker says, "I predict the global economy will grow by 3% next year." This is primarily an example of a(n):</p>
+                        <form id="q2a-form" class="space-y-3">
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2a" value="A" class="mr-2"> A. Command
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2a" value="B" class="mr-2"> B. Factual Statement
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2a" value="C" class="mr-2"> C. Opinion Statement
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2a" value="D" class="mr-2"> D. Question
+                            </label>
+                            <button type="button" onclick="checkAnswer('q2a', 'C', 'q2a-feedback')" class="mt-4 w-full px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg">Check Answer</button>
+                        </form>
+                        <div id="q2a-feedback" class="mt-4 p-3 rounded-lg font-medium hidden"></div>
+                    </div>
+
+                    <!-- Question Card 2 -->
+                    <div class="card bg-indigo-50 border-indigo-200">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4">Question 2: Part of Speech</h3>
+                        <p class="font-semibold text-slate-900 mb-4">Which of the following sentences correctly uses the word "Statement" as the required Noun?</p>
+                        <form id="q2b-form" class="space-y-3">
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2b" value="A" class="mr-2"> A. I will state the facts clearly.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2b" value="B" class="mr-2"> B. The politician stated his beliefs.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2b" value="C" class="mr-2"> C. She reviewed her bank statement.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q2b" value="D" class="mr-2"> D. The statement was very fast.
+                            </label>
+                            <button type="button" onclick="checkAnswer('q2b', 'C', 'q2b-feedback')" class="mt-4 w-full px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg">Check Answer</button>
+                        </form>
+                        <div id="q2b-feedback" class="mt-4 p-3 rounded-lg font-medium hidden"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reference Content -->
+            <section id="reference" class="content-panel">
+                 <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card md:col-span-2">
+                        <h2 class="text-3xl font-bold text-indigo-700 mb-4 border-b pb-2 border-indigo-100">Reference: Definition and Usage</h2>
+                        <blockquote class="border-l-4 border-teal-500 pl-4 text-slate-700 italic text-lg">
+                            A Reference is the act of mentioning, citing, or consulting a source of information.
+                        </blockquote>
+                        <div class="mt-6 space-y-4">
+                            <h3 class="font-semibold text-xl text-slate-800 mb-2">Key Data & Structure:</h3>
+                            <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                <li>**Phonetics:** `[ˈref.ər.əns]`</li>
+                                <li>**Part of Speech:** Noun (n)</li>
+                                <li>**Core Meaning:** Mention or source of information</li>
+                                <li>**Word Family:** refer (v)</li>
+                                <li>**Collocations:** make reference to / reference book</li>
+                                <li>**Example Sentence:** He made a reference to Shakespeare.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Question Card 1 -->
+                    <div class="card bg-indigo-50 border-indigo-200">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4">Question 1: Purpose of Citation</h3>
+                        <p class="font-semibold text-slate-900 mb-4">What is the primary reason for including an Academic Reference in a research paper?</p>
+                        <form id="q3a-form" class="space-y-3">
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3a" value="A" class="mr-2"> A. To make the paper longer
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3a" value="B" class="mr-2"> B. To avoid plagiarism and validate claims
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3a" value="C" class="mr-2"> C. To show off complex sources
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3a" value="D" class="mr-2"> D. To change the paper's font style
+                            </label>
+                            <button type="button" onclick="checkAnswer('q3a', 'B', 'q3a-feedback')" class="mt-4 w-full px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg">Check Answer</button>
+                        </form>
+                        <div id="q3a-feedback" class="mt-4 p-3 rounded-lg font-medium hidden"></div>
+                    </div>
+
+                    <!-- Question Card 2 -->
+                    <div class="card bg-indigo-50 border-indigo-200">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4">Question 2: Collocation Usage</h3>
+                        <p class="font-semibold text-slate-900 mb-4">In the collocation "reference book," what part of speech is reference functioning as?</p>
+                        <form id="q3b-form" class="space-y-3">
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3b" value="A" class="mr-2"> A. A Verb describing the action of the book.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3b" value="B" class="mr-2"> B. An Adverb modifying the way the book is read.
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3b" value="C" class="mr-2"> C. An Attribute Noun modifying the main noun "book."
+                            </label>
+                            <label class="block bg-white p-3 rounded-lg border border-slate-200 question-option transition duration-150">
+                                <input type="radio" name="q3b" value="D" class="mr-2"> D. A coordinating conjunction.
+                            </label>
+                            <button type="button" onclick="checkAnswer('q3b', 'C', 'q3b-feedback')" class="mt-4 w-full px-6 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md hover:shadow-lg">Check Answer</button>
+                        </form>
+                        <div id="q3b-feedback" class="mt-4 p-3 rounded-lg font-medium hidden"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="mt-12 text-center text-slate-500 text-sm border-t pt-6">
+            <p>&copy; Group 4 Vocabulary Study. All concepts adapted for interactive learning.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contentPanels = document.querySelectorAll('.content-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-target');
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    contentPanels.forEach(panel => {
+                        if (panel.id === target) {
+                            panel.classList.add('active');
+                        } else {
+                            panel.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+
+        function checkAnswer(questionName, correctAnswer, feedbackId) {
+            const form = document.getElementById(questionName + '-form');
+            const feedback = document.getElementById(feedbackId);
+            const selected = form.querySelector('input[name="' + questionName + '"]:checked');
+
+            if (!selected) {
+                feedback.textContent = "Please select an answer.";
+                feedback.className = 'mt-4 p-3 rounded-lg font-medium text-amber-800 bg-amber-100 block';
+                return;
+            }
+
+            if (selected.value === correctAnswer) {
+                feedback.textContent = "✅ Correct! That demonstrates a solid understanding of the concept's application.";
+                feedback.className = 'mt-4 p-3 rounded-lg font-medium text-green-800 bg-green-100 block';
+            } else {
+                feedback.textContent = "❌ Incorrect. Please review the definition and usage examples on this page and try again.";
+                feedback.className = 'mt-4 p-3 rounded-lg font-medium text-red-800 bg-red-100 block';
+            }
+        }
+    </script>
+
+</body>
+</html>
